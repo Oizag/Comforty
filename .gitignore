@@ -1,0 +1,96 @@
+# Общие файлы
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.DS_Store
+Thumbs.db
+
+# Виртуальные окружения Python
+.venv/
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Логи
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Backend (Python/Django)
+backend/__pycache__/
+backend/*.py[cod]
+backend/*$py.class
+backend/*.so
+backend/.Python
+backend/env/
+backend/venv/
+backend/.venv/
+backend/ENV/
+backend/env.bak/
+backend/venv.bak/
+backend/.pytest_cache/
+backend/coverage.xml
+backend/.coverage
+backend/htmlcov/
+backend/.tox/
+backend/.cache
+backend/nosetests.xml
+backend/.mypy_cache/
+backend/.dmypy.json
+backend/dmypy.json
+backend/media/
+backend/staticfiles/
+backend/db.sqlite3
+backend/.env
+
+# Frontend (Node.js/Vue)
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.nuxt/
+frontend/.output/
+frontend/.vite/
+frontend/.temp/
+frontend/.cache/
+frontend/.parcel-cache/
+frontend/.next/
+frontend/.vuepress/dist/
+frontend/.serverless/
+frontend/.fusebox/
+frontend/.dynamodb/
+frontend/.tern-port/
+frontend/.nyc_output/
+frontend/coverage/
+frontend/.nyc_output/
+frontend/.grunt/
+frontend/bower_components/
+frontend/.lock-wscript/
+frontend/.eslintcache/
+frontend/.stylelintcache/
+frontend/.rpt2_cache/
+frontend/.rts2_cache_cjs/
+frontend/.rts2_cache_es/
+frontend/.rts2_cache_umd/
+frontend/.caches/
+frontend/.tsbuildinfo/
+frontend/.vscode-test/
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# Временные файлы
+*.tmp
+*.temp
+*.bak
+*.backup
