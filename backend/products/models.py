@@ -40,29 +40,29 @@ class Product(models.Model):
         FEATURED = "featired", "Featured"
 
     category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, related_name="products", db_index=True
+        Category, on_delete=models.CASCADE, related_name="products", db_index=True, verbose_name="Категория"
     )
     name = models.CharField(max_length=200, verbose_name="Название продукта")
     slug = models.SlugField(max_length=220, unique=True, db_index=True)
     sku = models.CharField(max_length=100, blank=True, default="")
     description = models.TextField(blank=True, default="", verbose_name="Описание")
 
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    old_proce = models.DecimalField(max_digits=10, decimal_places=2)
-    currency = models.CharField(max_length=3, default="RUB")
+    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена")
+    old_proce = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Старая цена")
+    currency = models.CharField(max_length=3, default="RUB", verbose_name="Валюта")
 
-    in_stock = models.BooleanField(default=True)
-    stock_qty = models.PositiveIntegerField(default=0)
+    in_stock = models.BooleanField(default=True, verbose_name="В наличии")
+    stock_qty = models.PositiveIntegerField(default=0, verbose_name="Количество на складе")
 
     badge = models.CharField(
-        max_length=10, choices=Badge.choices, default=Badge.NONE, db_index=True
+        max_length=10, choices=Badge.choices, default=Badge.NONE, db_index=True, verbose_name="Бренд"
     )
 
-    rating_abg = models.FloatField(default=0.0)
-    rating_count = models.PositiveIntegerField(default=0)
+    rating_abg = models.FloatField(default=0.0, verbose_name="Рейтинг")
+    rating_count = models.PositiveIntegerField(default=0, verbose_name="Количество оценок")
 
-    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name="Дата создания")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата обновления")
 
     class Meta:
         ordering = ["-created_at"]
@@ -91,15 +91,21 @@ class ProductImage(models.Model):
         db_index=True,
     )
     image = models.ImageField(
-        upload_to="/products/%Y/%m/",
+        upload_to="products/%Y/%m/",
         verbose_name="Изображение товара",
     )
 
+    is_primary = models.BooleanField(default=False, verbose_name="Основное изображение")
+    sort_order = models.PositiveIntegerField(default=0, verbose_name="Порядок сортировки")
+
     class Meta:
         ordering = ["id"]
-        indexes = [models.Index(fields=["product"])]
+        indexes = [
+            models.Index(fields=["product"]),
+            models.Index(fields=["is_primary", "sort_order"]),
+        ]
         verbose_name = "Изображение товара"
         verbose_name_plural = "Изображения товаров"
 
     def __str__(self) -> str:
-        return f"{self.product.name}"
+        return f"{self.product.name} ({'primary' if self.is_primary else 'extra'})"
